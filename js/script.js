@@ -29,6 +29,7 @@ const inputElements = {
 const btnElements = {
   msgGenerator: document.getElementById("btn-message"),
   qrCodeGenerator: document.getElementById("btn-qrcode"),
+  editMsg: document.getElementById("edit-message"),
 };
 
 // --- TESTE
