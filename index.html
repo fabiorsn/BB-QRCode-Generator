@@ -77,7 +77,7 @@
               <select class="input-component" name="wpp-message" id="wpp-message" required>
                 <option value="" selected disabled>Selecione a mensagem...</option>
                 <option value="personalizada">Personlizada</option>
-                <option value="agenda">Agenda Relacional</option>
+                <option value="agenda-relacional">Agenda Relacional</option>
                 <option value="universo-ourocard">Universo Ourocard</option>
                 <option value="rende-facil">Rende Fácil</option>
               </select>
@@ -114,7 +114,10 @@
       </div>
       <section class="message-container input-container">
         <label for="message-area">Validação da mensagem</label>
-        <textarea name="message-area" id="message-area" placeholder="A mensagem será gerada aqui. Você pode editar antes de enviar."> </textarea>
+        <textarea name="message-area" id="message-area" placeholder="A mensagem será gerada aqui. Você pode editar antes de enviar." disabled>
+        </textarea>
+        <input type="checkbox" name="enable-edit" id="enable-edit" />
+        <label for="enable-edit" class="noRequired"><img src="./img/edit.png" alt="Editar mensagem" id="edit-message" /></label>
       </section>
     </main>
 

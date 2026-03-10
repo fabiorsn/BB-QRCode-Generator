@@ -17,6 +17,9 @@ Se precisar de alguma orientação personalizada, pode contar comigo por aqui!`,
 // *** GETTING ELEMENTS ***
 // --- INPUTS
 const getGreetingElement = document.getElementById("greeting");
+const selectMessageElement = document.getElementById("wpp-message");
+const editMessageElement = document.getElementById("edit-message");
+
 // --- OUTPUTS
 const textAreaElement = document.getElementById("message-area");
 
@@ -32,11 +35,34 @@ function selectSupport() {
   return document.querySelector('input[name="personSelected"]:checked').value;
 }
 
+// --- EVENT LISTENER
+selectMessageElement.addEventListener("change", () => {
+  const messageSelected = selectMessageElement.value;
+
+  if (messageSelected == "personalizada") {
+    textAreaElement.value = messageSelected;
+    textAreaElement.disabled = false;
+    textAreaElement.focus();
+  } else {
+    textAreaElement.value = messageSelected;
+    textAreaElement.disabled = true;
+  }
+});
+
 btnMessageElement.addEventListener("click", () => {
   if (addGreeting()) {
     textAreaElement.value = `${msg["greeting"]}
 
 ${msg[`${selectSupport()}Intro`]}`;
+  }
+});
+
+editMessageElement.addEventListener("click", () => {
+  if (textAreaElement.disabled) {
+    textAreaElement.disabled = false;
+    textAreaElement.focus();
+  } else {
+    textAreaElement.disabled = true;
   }
 });
 

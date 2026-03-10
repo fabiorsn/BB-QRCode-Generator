@@ -285,6 +285,10 @@ input[type="checkbox"]:checked + label {
 }
 
 /* --- SECTION - TEXT AREA --- */
+.message-container {
+  position: relative;
+}
+
 .message-container textarea {
   height: 248px;
   padding: 16px;
@@ -297,6 +301,32 @@ input[type="checkbox"]:checked + label {
 
   color: var(--text-color-secondary);
   background-color: var(--color-bg-input);
+}
+
+.message-container input[type="checkbox"] {
+  display: none;
+}
+
+.message-container input[type="checkbox"] ~ label {
+  display: block;
+  background-color: var(--brand-secondary-color);
+}
+
+.message-container label img {
+  position: absolute;
+  top: 48px;
+  left: calc(100% - 34px);
+
+  width: 24px;
+  background-color: var(--brand-secondary-color);
+  padding: 4px;
+  border-radius: 2px;
+
+  cursor: pointer;
+}
+
+.message-container label img:active {
+  transform: scale(0.95);
 }
 
 /* --- HOVER --- */
