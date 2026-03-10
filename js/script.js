@@ -10,12 +10,13 @@ const msg = {
 
 Se precisar de alguma orientação personalizada, pode contar comigo por aqui!`,
 
-  universoOurocard: `
-  `,
+  universoOurocard: `Universo Ourocard`,
+  rendeFacil: `Rende Facil`,
+  personalizada: `Personalizada`,
 };
 
-// *** GETTING ELEMENTS ***
-// --- INPUTS
+// --- GETTING ELEMENTS
+// Inputs
 const inputElements = {
   clienteName: document.getElementById("client-name"),
   wppNumber: document.getElementById("client-phone-number"),
@@ -25,32 +26,48 @@ const inputElements = {
   greetingMsg: document.getElementById("greeting"),
   suppPosition: document.getElementsByName("personSelected"),
 };
-
+// Buttons
 const btnElements = {
   msgGenerator: document.getElementById("btn-message"),
   qrCodeGenerator: document.getElementById("btn-qrcode"),
   editMsg: document.getElementById("edit-message"),
 };
-
+// Outputs
 const outputElements = {
   msgArea: document.getElementById("message-area"),
   qrCodeArea: document.getElementById("qrCode-area"),
 };
 
+// --- FUNCTIONS
+function selectSuppPosition() {
+  return inputElements["suppPosition"].find((radio) => radio.checked) || null;
+}
+
 // --- TESTE
 btnElements["qrCodeGenerator"].addEventListener("click", () => {
-  for (const radio of inputElements["suppPosition"]) {
-    if (radio.checked) {
-      alert(radio.value);
-    }
+  alert(selectSuppPosition().value);
+});
+
+btnElements["msgGenerator"].addEventListener("click", () => {
+  // if (addGreeting()) {
+  if (inputElements["greetingMsg"].checked) {
+    outputElements["msgArea"].value = `${msg["greeting"]}
+
+${msg[`${selectSupport()}Intro`]}`;
   }
+});
+
+inputElements["msgSelected"].addEventListener("change", () => {
+  // const msg = inputElements["msgSelected"].value;
+  // alert(msg);
+  alert(inputElements["msgSelected"].value);
 });
 
 // --- EVENTS
 
 //  *** CODE ***
 function addGreeting() {
-  return getGreetingElement.checked;
+  return inputElements["greetingMsg"].checked;
 }
 
 function selectSupport() {
@@ -68,14 +85,6 @@ selectMessageElement.addEventListener("change", () => {
   } else {
     textAreaElement.value = messageSelected;
     textAreaElement.disabled = true;
-  }
-});
-
-btnMessageElement.addEventListener("click", () => {
-  if (addGreeting()) {
-    textAreaElement.value = `${msg["greeting"]}
-
-${msg[`${selectSupport()}Intro`]}`;
   }
 });
 
