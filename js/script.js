@@ -16,36 +16,58 @@ Se precisar de alguma orientação personalizada, pode contar comigo por aqui!`,
 };
 
 // --- GETTING ELEMENTS
-// Inputs
-const inputElements = {
-  clienteName: document.getElementById("client-name"),
-  wppNumber: document.getElementById("client-phone-number"),
-  managerName: document.getElementById("manager-name"),
-  assistentName: document.getElementById("assistent-name"),
-  msgSelected: document.getElementById("wpp-message"),
-  greetingMsg: document.getElementById("greeting"),
-  suppPosition: document.getElementsByName("personSelected"),
-};
-// Buttons
-const btnElements = {
-  msgGenerator: document.getElementById("btn-message"),
-  qrCodeGenerator: document.getElementById("btn-qrcode"),
-  editMsg: document.getElementById("edit-message"),
-};
-// Outputs
-const outputElements = {
-  msgArea: document.getElementById("message-area"),
-  qrCodeArea: document.getElementById("qrCode-area"),
+// DOM Elements
+const DOM = {
+  inputs: {
+    clienteName: document.getElementById("client-name"),
+    wppNumber: document.getElementById("client-phone-number"),
+    managerName: document.getElementById("manager-name"),
+    assistentName: document.getElementById("assistent-name"),
+    msgSelected: document.getElementById("wpp-message"),
+    greetingMsg: document.getElementById("greeting"),
+    respPerson: document.getElementsByName("personSelected"),
+  },
+  buttons: {
+    msgGenerator: document.getElementById("btn-message"),
+    qrCodeGenerator: document.getElementById("btn-qrcode"),
+    editMsg: document.getElementById("edit-message"),
+  },
+  outputs: {
+    msgArea: document.getElementById("message-area"),
+    qrCodeArea: document.getElementById("qrCode-area"),
+  },
 };
 
+// Inputs
+// const inputElements = {
+//   clienteName: document.getElementById("client-name"),
+//   wppNumber: document.getElementById("client-phone-number"),
+//   managerName: document.getElementById("manager-name"),
+//   assistentName: document.getElementById("assistent-name"),
+//   msgSelected: document.getElementById("wpp-message"),
+//   greetingMsg: document.getElementById("greeting"),
+//   respPerson: document.getElementsByName("personSelected"),
+// };
+// // Buttons
+// const btnElements = {
+//   msgGenerator: document.getElementById("btn-message"),
+//   qrCodeGenerator: document.getElementById("btn-qrcode"),
+//   editMsg: document.getElementById("edit-message"),
+// };
+// // Outputs
+// const outputElements = {
+//   msgArea: document.getElementById("message-area"),
+//   qrCodeArea: document.getElementById("qrCode-area"),
+// };
+
 // --- FUNCTIONS
-function selectSuppPosition() {
-  return inputElements["suppPosition"].find((radio) => radio.checked) || null;
+function selectRespPerson() {
+  return DOM.inputs.respPerson.find((radio) => radio.checked) || null;
 }
 
 // --- TESTE
 btnElements["qrCodeGenerator"].addEventListener("click", () => {
-  alert(selectSuppPosition().value);
+  alert(selectRespPerson().value);
 });
 
 btnElements["msgGenerator"].addEventListener("click", () => {
