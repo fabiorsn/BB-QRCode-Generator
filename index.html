@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./css/styles.css" />
+
+    <title>Central Estilo BB</title>
+  </head>
+  <body>
+    <header class="header-page">
+      <div class="header-logo">
+        <img src="./img/logo-BB.svg" alt="Logo do Banco do Brasil" />
+        <h1>Banco do Brasil</h1>
+      </div>
+      <div class="header-text">
+        <h1>Central Estilo BB</h1>
+        <div class="header-vertical-bar"></div>
+        <h3>Geração de mensagens e QR Code para WhatsApp</h3>
+      </div>
+    </header>
+    <main class="main-container">
+      <header class="content-intro">
+        <h2>Dados do atendimento</h2>
+        <p>
+          Preencha os dados abaixo, selecione o tipo de mensagem e gere o texto personalizado para o cliente, além do QR Code para envio via WhatsApp.
+        </p>
+      </header>
+      <div class="double-section">
+        <section class="inputData-section">
+          <form action="#">
+            <div class="input-container">
+              <label for="client-name">Nome do Cliente</label>
+              <input class="input-component" type="text" id="client-name" name="client-name" placeholder="Ex: Sr. João Silva" required />
+            </div>
+
+            <div class="input-container">
+              <label for="client-phone-number">Número do cliente (WhatsApp)</label>
+              <input
+                class="input-component"
+                type="tel"
+                id="client-phone-number"
+                name="client-phone-number"
+                pattern="[0-9]*"
+                maxlength="11"
+                placeholder="(61) 98877-6655"
+                inputmode="numeric"
+                required
+              />
+              <span class="span-legend">Adicione apenas números</span>
+            </div>
+
+            <div class="input-container">
+              <label for="manager-name">Nome do gerente</label>
+              <select class="input-component" name="manager-name" id="manager-name" required>
+                <option value="" selected disabled>Selecione o nome do gerente...</option>
+                <option value="Fatima">Maria de Fátima</option>
+                <option value="Wallyson">Wallyson</option>
+                <option value="Evandro">Evandro</option>
+                <option value="Adriano">Adriano</option>
+                <option value="Rodrigo">Rodrigo</option>
+                <option value="Rogério">Rogério</option>
+                <option value="Najara">Najara</option>
+                <option value="Rubens">Rubens</option>
+                <option value="Rafael">Rafael</option>
+              </select>
+            </div>
+
+            <div class="input-container">
+              <label for="assistent-name">Nome do assistente</label>
+              <input type="text" class="input-component" id="assistent-name" name="assistent-name" placeholder="Ex: Fábio" required />
+            </div>
+
+            <div class="input-container">
+              <label for="wpp-message">Mensagem do WhatsApp</label>
+              <select class="input-component" name="wpp-message" id="wpp-message" required>
+                <option value="" selected disabled>Selecione a mensagem...</option>
+                <option value="personalizada">Personlizada</option>
+                <option value="agenda">Agenda Relacional</option>
+                <option value="universo-ourocard">Universo Ourocard</option>
+                <option value="rende-facil">Rende Fácil</option>
+              </select>
+
+              <div class="fs-container">
+                <fieldset class="fs-checkbox">
+                  <input type="checkbox" name="greeting" id="greeting" />
+                  <label for="greeting" class="noRequired cursorPointer">Adicionar saudação</label>
+                </fieldset>
+                <fieldset class="fs-radio">
+                  <div class="radio-element">
+                    <input type="radio" name="personSelected" id="assistent" value="assistent" checked />
+                    <label for="assistent" class="noRequired cursorPointer">Assistente</label>
+                  </div>
+                  <div class="radio-element">
+                    <input type="radio" name="personSelected" id="manager" value="manager" />
+                    <label for="manager" class="noRequired cursorPointer">Gerente</label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="btn-form-container">
+              <button type="button" class="btn btn-primary" id="btn-message">Gerar Mensagem</button>
+              <button type="button" class="btn btn-secondary">Gerar QR Code</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="qrCode-section input-container">
+          <span class="label" id="qrCode-label">QR Code</span>
+          <div aria-multiselectable="qrCode-label" class="qrCode-container"></div>
+        </section>
+      </div>
+      <section class="message-container input-container">
+        <label for="message-area">Validação da mensagem</label>
+        <textarea name="message-area" id="message-area" placeholder="A mensagem será gerada aqui. Você pode editar antes de enviar."> </textarea>
+      </section>
+    </main>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>

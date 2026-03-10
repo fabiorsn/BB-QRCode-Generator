@@ -1,0 +1,325 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "BancoDoBrasil Textos";
+  src: url("../font/BancoDoBrasilTextos-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BancoDoBrasil Titulos";
+  src: url("../font/BancoDoBrasilTitulos-Bold.ttf");
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+}
+
+:root {
+  /* Cores de Identidade */
+  --brand-primary-color: #093f3a;
+  --brand-secondary-color: #fcfc30;
+
+  /* Backgrounds */
+  --color-bg-main: #f4f3f2;
+  --color-bg-form: #ffffff;
+  --color-bg-input: #385f5b80;
+
+  /* Fonts */
+  --text-color-primary: #093f3a;
+  --text-color-secondary: #fcfc30;
+  --text-color-tertiary: #f4f3f2;
+
+  --font-size: 16px;
+  --font-weight-regular: 400;
+  --font-weight-bold: 800;
+}
+
+html {
+  font-size: var(--font-size);
+  background-color: var(--color-bg-main);
+  font-family: "BancoDoBrasil Textos", sans-serif;
+}
+
+h1,
+h2 {
+  font-family: "BancoDoBrasil Titulos", sans-serif;
+  font-weight: var(--font-weight-bold);
+}
+
+h1 {
+  font-size: 1.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-family: "BancoDoBrasil Textos", sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+}
+
+p {
+  font-size: 0.875rem;
+  padding-top: 8px;
+}
+
+.span-legend {
+  font-size: 0.625rem;
+  margin-top: 4px;
+}
+
+label,
+.label {
+  font-family: "BancoDoBrasil Titulos", sans-serif;
+  font-weight: var(--font-weight-bold);
+  font-size: 1rem;
+}
+
+input::placeholder,
+textarea::placeholder,
+option:disabled,
+option,
+select:invalid {
+  font-family: "BancoDoBrasil Textos";
+  font-size: 0.75rem;
+  color: var(--text-color-tertiary);
+}
+
+select,
+button,
+input[type="radio"],
+input[type="checkbox"],
+.cursorPointer {
+  cursor: pointer;
+}
+
+/* HEADER */
+.header-page {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 48px 12px;
+
+  border-bottom: 4px solid var(--brand-secondary-color);
+  background-color: var(--brand-primary-color);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+  color: var(--brand-secondary-color);
+}
+
+.header-logo img {
+  width: 32px;
+  height: 32px;
+}
+
+.header-text {
+  display: flex;
+  align-items: center;
+
+  gap: 24px;
+  color: var(--text-color-tertiary);
+}
+
+.header-vertical-bar {
+  width: 2px;
+  height: 24px;
+  background-color: var(--text-color-tertiary);
+}
+
+/* --- MAIN --- */
+.main-container {
+  margin: 16px auto;
+  justify-content: center;
+
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+
+  max-width: 900px;
+
+  color: var(--text-color-primary);
+}
+
+/* --- SECTION - FORMS --- */
+.double-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 24px;
+
+  margin-top: 8px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 16px;
+}
+
+.input-component {
+  display: block;
+
+  margin-top: 4px;
+  height: 2rem;
+  padding: 0 12px;
+
+  border-radius: 4px;
+  border: none;
+
+  font-family: "BancoDoBrasil Textos";
+  font-weight: var(--font-weight-regular);
+
+  background-color: var(--color-bg-input);
+  color: var(--text-color-secondary);
+}
+
+/* --- CHECKBOX E RADIOS --- */
+.fs-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.fs-container label {
+  font-family: "BancoDoBrasil Textos", sans-serif;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-regular);
+  color: var(--text-color-tertiary);
+}
+
+.fs-checkbox,
+.fs-radio {
+  display: flex;
+  align-items: center;
+
+  flex: 1;
+  padding: 4px 12px;
+  gap: 4px;
+
+  background-color: var(--color-bg-input);
+  border: none;
+  border-radius: 4px;
+}
+
+.fs-radio {
+  justify-content: space-around;
+}
+
+.radio-element {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+input[type="radio"]:checked + label,
+input[type="checkbox"]:checked + label {
+  color: var(--brand-secondary-color);
+}
+/* --- BOTÕES --- */
+
+.btn-form-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 14px;
+  gap: 10px;
+}
+
+.btn {
+  display: block;
+  position: relative;
+
+  flex: 1;
+  height: 44px;
+
+  border: none;
+  border-radius: 4px;
+
+  font-family: "BancoDoBrasil Textos", sans-serif;
+  font-weight: var(--font-weight-bold);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  color: var(--text-color-secondary);
+  background-color: var(--brand-primary-color);
+}
+
+.btn-secondary {
+  color: var(--text-color-primary);
+  background-color: var(--brand-secondary-color);
+}
+
+/* --- SECTION - QR CODE --- */
+
+.qrCode-section {
+  padding-top: 24px 0;
+}
+
+.qrCode-container {
+  margin-top: 4px;
+  height: 100%;
+  border-radius: 4px;
+
+  background-color: var(--color-bg-input);
+}
+
+/* --- SECTION - TEXT AREA --- */
+.message-container textarea {
+  height: 248px;
+  padding: 16px;
+  margin-top: 4px;
+  overflow: auto;
+
+  border: none;
+  border-radius: 8px;
+  resize: none;
+
+  color: var(--text-color-secondary);
+  background-color: var(--color-bg-input);
+}
+
+/* --- HOVER --- */
+.btn:hover {
+  position: relative;
+  top: -2px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+label::after {
+  content: "*";
+  font-size: smaller;
+  font-weight: 100;
+  color: darkred;
+  position: relative;
+  top: -4px;
+  left: 1px;
+}
+
+.noRequired::after {
+  content: "";
+}
