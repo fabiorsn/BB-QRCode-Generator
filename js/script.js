@@ -16,6 +16,30 @@ Se precisar de alguma orientação personalizada, pode contar comigo por aqui!`,
 
 // *** GETTING ELEMENTS ***
 // --- INPUTS
+const inputElements = {
+  clienteName: document.getElementById("client-name"),
+  wppNumber: document.getElementById("client-phone-number"),
+  managerName: document.getElementById("manager-name"),
+  assistentName: document.getElementById("assistent-name"),
+  msgSelected: document.getElementById("wpp-message"),
+  greetingMsg: document.getElementById("greeting"),
+  suppPosition: document.getElementsByName("personSelected"),
+};
+
+const btnElements = {
+  msgGenerator: document.getElementById("btn-message"),
+  qrCodeGenerator: document.getElementById("btn-qrcode"),
+};
+
+// --- TESTE
+btnElements["qrCodeGenerator"].addEventListener("click", () => {
+  for (const radio of inputElements["suppPosition"]) {
+    if (radio.checked) {
+      alert(radio.value);
+    }
+  }
+});
+
 const getGreetingElement = document.getElementById("greeting");
 const selectMessageElement = document.getElementById("wpp-message");
 const editMessageElement = document.getElementById("edit-message");
