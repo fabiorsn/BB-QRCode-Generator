@@ -32,6 +32,11 @@ const btnElements = {
   editMsg: document.getElementById("edit-message"),
 };
 
+const outputElements = {
+  msgArea: document.getElementById("message-area"),
+  qrCodeArea: document.getElementById("qrCode-area"),
+};
+
 // --- TESTE
 btnElements["qrCodeGenerator"].addEventListener("click", () => {
   for (const radio of inputElements["suppPosition"]) {
@@ -41,15 +46,7 @@ btnElements["qrCodeGenerator"].addEventListener("click", () => {
   }
 });
 
-const getGreetingElement = document.getElementById("greeting");
-const selectMessageElement = document.getElementById("wpp-message");
-const editMessageElement = document.getElementById("edit-message");
-
-// --- OUTPUTS
-const textAreaElement = document.getElementById("message-area");
-
-// --- BUTTONS
-const btnMessageElement = document.getElementById("btn-message");
+// --- EVENTS
 
 //  *** CODE ***
 function addGreeting() {
@@ -90,35 +87,3 @@ editMessageElement.addEventListener("click", () => {
     textAreaElement.disabled = true;
   }
 });
-
-// btnMessageElement.addEventListener("click", () => {
-//   const greetingChecked = getGreetingElement.checked;
-//   const responsablePersonSelected = getResponsablePersonElement;
-
-//   alert(responsablePersonSelected);
-
-//   if (greetingChecked) {
-//     textAreaElement.value = msg["greeting"];
-//   }
-// });
-
-// // --- CAPTURA DOS ELEMENTOS
-// const clientNameElement = document.getElementById("client-name");
-// const clientWppNumber = document.getElementById("client-phone-number");
-// const textAreaEle = document.getElementById("message-area");
-// const btnMessageElement = document.getElementById("btn-message");
-
-// textAreaEle.value = msg["agendaRelacional"];
-
-// btnMessageElement.addEventListener("click", () => {
-//   textAreaEle.value = `${msg["greeting"]}
-
-// ${msg["assistentIntro"].replace('{---}', )}
-
-// ${msg["agendaRelacional"]}`;
-// });
-
-// function generateWhatsappMessage() {
-//   const test = clientNameElement.value.trim();
-//   alert(test);
-// }
