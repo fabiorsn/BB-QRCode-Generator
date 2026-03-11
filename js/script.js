@@ -30,7 +30,7 @@ const DOM = {
   buttons: {
     msgGenerator: document.getElementById("btn-message"),
     qrCodeGenerator: document.getElementById("btn-qrcode"),
-    editMsg: document.getElementById("edit-message"),
+    editMsg: document.getElementById("btn-editmsg"),
   },
   outputs: {
     msgArea: document.getElementById("message-area"),
@@ -39,7 +39,17 @@ const DOM = {
 };
 
 // --- FEATS
-const editBtn = (inputElement, outputElement) => {};
+function toggleTextAreaEdit(inputElement, outputElement) {
+  inputElement.addEventListener("click", () => {
+    outputElement.readOnly = !outputElement.readOnly;
+    if (!outputElement.readOnly) {
+      outputElement.focus();
+      // outputElement.setSelectionRange();
+    }
+  });
+}
+
+toggleTextAreaEdit(DOM.buttons.editMsg, DOM.outputs.msgArea);
 
 // --- FUNCTIONS
 function selectRespPerson() {
