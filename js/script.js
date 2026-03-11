@@ -38,18 +38,39 @@ const DOM = {
   },
 };
 
-// --- FEATS
-function toggleTextAreaEdit(inputElement, outputElement) {
-  inputElement.addEventListener("click", () => {
-    outputElement.readOnly = !outputElement.readOnly;
-    if (!outputElement.readOnly) {
-      outputElement.focus();
-      // outputElement.setSelectionRange();
-    }
-  });
-}
+// --- FEATS - BUTTONS
+const setupTextAreaToggle = (triggerElement, targetElement) => {
+  if (!triggerElement || !targetElement) return;
 
-toggleTextAreaEdit(DOM.buttons.editMsg, DOM.outputs.msgArea);
+  const handleToggleEdit = () => {
+    const { readOnly } = targetElement; // same as: const isReadOnly = targetElement.readOnly;
+    targetElement.readOnly = !readOnly;
+
+    if (!targetElement.readOnly) {
+      activateTargetElement(targetElement);
+    }
+  };
+
+  const activateTargetElement = (e) => {
+    e.focus();
+  };
+
+  triggerElement.addEventListener("click", handleToggleEdit);
+};
+
+setupTextAreaToggle(DOM.buttons.editMsg, DOM.outputs.msgArea);
+
+// function toggleTextAreaEdit(inputElement, outputElement) {
+//   inputElement.addEventListener("click", () => {
+//     outputElement.readOnly = !outputElement.readOnly;
+//     if (!outputElement.readOnly) {
+//       outputElement.focus();
+//       // outputElement.setSelectionRange();
+//     }
+//   });
+// }
+
+// toggleTextAreaEdit(DOM.buttons.editMsg, DOM.outputs.msgArea);
 
 // --- FUNCTIONS
 function selectRespPerson() {
