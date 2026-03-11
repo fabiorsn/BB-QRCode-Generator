@@ -10,64 +10,97 @@ const msg = {
 
 Se precisar de alguma orientação personalizada, pode contar comigo por aqui!`,
 
-  universoOurocard: `
-  `,
+  universoOurocard: `Universo Ourocard`,
+  rendeFacil: `Rende Facil`,
+  personalizada: `Personalizada`,
 };
 
-// *** GETTING ELEMENTS ***
-// --- INPUTS
-const getGreetingElement = document.getElementById("greeting");
-// --- OUTPUTS
-const textAreaElement = document.getElementById("message-area");
+// --- GETTING ELEMENTS
+// DOM Elements
+const DOM = {
+  inputs: {
+    clienteName: document.getElementById("client-name"),
+    wppNumber: document.getElementById("client-phone-number"),
+    managerName: document.getElementById("manager-name"),
+    assistentName: document.getElementById("assistent-name"),
+    msgSelected: document.getElementById("wpp-message"),
+    greetingMsg: document.getElementById("greeting"),
+    respPerson: [...document.querySelectorAll("input[name=personSelected]")],
+  },
+  buttons: {
+    msgGenerator: document.getElementById("btn-message"),
+    qrCodeGenerator: document.getElementById("btn-qrcode"),
+    editMsg: document.getElementById("edit-message"),
+  },
+  outputs: {
+    msgArea: document.getElementById("message-area"),
+    qrCodeArea: document.getElementById("qrCode-area"),
+  },
+};
 
-// --- BUTTONS
-const btnMessageElement = document.getElementById("btn-message");
+// --- FEATS
+const editBtn = (inputElement, outputElement) => {};
 
-//  *** CODE ***
-function addGreeting() {
-  return getGreetingElement.checked;
+// --- FUNCTIONS
+function selectRespPerson() {
+  return DOM.inputs.respPerson.find((radio) => radio.checked).value || null;
 }
 
-function selectSupport() {
-  return document.querySelector('input[name="personSelected"]:checked').value;
-}
-
-btnMessageElement.addEventListener("click", () => {
-  if (addGreeting()) {
-    textAreaElement.value = `${msg["greeting"]}
-
-${msg[`${selectSupport()}Intro`]}`;
-  }
+// --- EVENTS
+DOM.buttons.qrCodeGenerator.addEventListener("click", () => {
+  alert(selectRespPerson());
 });
 
-// btnMessageElement.addEventListener("click", () => {
-//   const greetingChecked = getGreetingElement.checked;
-//   const responsablePersonSelected = getResponsablePersonElement;
+// // --- TESTE
+// btnElements["qrCodeGenerator"].addEventListener("click", () => {
+//   alert(selectRespPerson().value);
+// });
 
-//   alert(responsablePersonSelected);
+// btnElements["msgGenerator"].addEventListener("click", () => {
+//   // if (addGreeting()) {
+//   if (inputElements["greetingMsg"].checked) {
+//     outputElements["msgArea"].value = `${msg["greeting"]}
 
-//   if (greetingChecked) {
-//     textAreaElement.value = msg["greeting"];
+// ${msg[`${selectSupport()}Intro`]}`;
 //   }
 // });
 
-// // --- CAPTURA DOS ELEMENTOS
-// const clientNameElement = document.getElementById("client-name");
-// const clientWppNumber = document.getElementById("client-phone-number");
-// const textAreaEle = document.getElementById("message-area");
-// const btnMessageElement = document.getElementById("btn-message");
-
-// textAreaEle.value = msg["agendaRelacional"];
-
-// btnMessageElement.addEventListener("click", () => {
-//   textAreaEle.value = `${msg["greeting"]}
-
-// ${msg["assistentIntro"].replace('{---}', )}
-
-// ${msg["agendaRelacional"]}`;
+// inputElements["msgSelected"].addEventListener("change", () => {
+//   // const msg = inputElements["msgSelected"].value;
+//   // alert(msg);
+//   alert(inputElements["msgSelected"].value);
 // });
 
-// function generateWhatsappMessage() {
-//   const test = clientNameElement.value.trim();
-//   alert(test);
+// // --- EVENTS
+
+// //  *** CODE ***
+// function addGreeting() {
+//   return inputElements["greetingMsg"].checked;
 // }
+
+// function selectSupport() {
+//   return document.querySelector('input[name="personSelected"]:checked').value;
+// }
+
+// // --- EVENT LISTENER
+// selectMessageElement.addEventListener("change", () => {
+//   const messageSelected = selectMessageElement.value;
+
+//   if (messageSelected == "personalizada") {
+//     textAreaElement.value = messageSelected;
+//     textAreaElement.disabled = false;
+//     textAreaElement.focus();
+//   } else {
+//     textAreaElement.value = messageSelected;
+//     textAreaElement.disabled = true;
+//   }
+// });
+
+// editMessageElement.addEventListener("click", () => {
+//   if (textAreaElement.disabled) {
+//     textAreaElement.disabled = false;
+//     textAreaElement.focus();
+//   } else {
+//     textAreaElement.disabled = true;
+//   }
+// });

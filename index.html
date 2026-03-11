@@ -77,9 +77,9 @@
               <select class="input-component" name="wpp-message" id="wpp-message" required>
                 <option value="" selected disabled>Selecione a mensagem...</option>
                 <option value="personalizada">Personlizada</option>
-                <option value="agenda">Agenda Relacional</option>
-                <option value="universo-ourocard">Universo Ourocard</option>
-                <option value="rende-facil">Rende Fácil</option>
+                <option value="agendaRelacional">Agenda Relacional</option>
+                <option value="universoOurocard">Universo Ourocard</option>
+                <option value="rendeFacil">Rende Fácil</option>
               </select>
 
               <div class="fs-container">
@@ -102,19 +102,21 @@
 
             <div class="btn-form-container">
               <button type="button" class="btn btn-primary" id="btn-message">Gerar Mensagem</button>
-              <button type="button" class="btn btn-secondary">Gerar QR Code</button>
+              <button type="button" class="btn btn-secondary" id="btn-qrcode">Gerar QR Code</button>
             </div>
           </form>
         </section>
 
         <section class="qrCode-section input-container">
           <span class="label" id="qrCode-label">QR Code</span>
-          <div aria-multiselectable="qrCode-label" class="qrCode-container"></div>
+          <div aria-multiselectable="qrCode-label" class="qrCode-container" id="qrCode-area"></div>
         </section>
       </div>
       <section class="message-container input-container">
         <label for="message-area">Validação da mensagem</label>
-        <textarea name="message-area" id="message-area" placeholder="A mensagem será gerada aqui. Você pode editar antes de enviar."> </textarea>
+        <textarea name="message-area" id="message-area" placeholder="A mensagem será gerada aqui. Você pode editar antes de enviar." disabled>
+        </textarea>
+        <button type="button" id="btn-editmsg" class="btn-editmsg"><img src="./img/edit.png" alt="Editar mensagem" id="edit-message" /></button>
       </section>
     </main>
 
