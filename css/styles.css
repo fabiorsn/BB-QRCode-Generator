@@ -303,29 +303,26 @@ input[type="checkbox"]:checked + label {
   background-color: var(--color-bg-input);
 }
 
-.message-container input[type="checkbox"] {
-  display: none;
-}
-
-.message-container input[type="checkbox"] ~ label {
-  display: block;
-  background-color: var(--brand-secondary-color);
-}
-
-.message-container label img {
+.btn-editmsg {
   position: absolute;
+
   top: 48px;
   left: calc(100% - 34px);
 
   width: 24px;
-  background-color: var(--brand-secondary-color);
-  padding: 4px;
-  border-radius: 2px;
+  height: 24px;
 
-  cursor: pointer;
+  border: none;
+  border-radius: 2px;
+  background-color: var(--brand-secondary-color);
 }
 
-.message-container label img:active {
+.btn-editmsg img {
+  width: 24px;
+  padding: 4px;
+}
+
+.message-container button img:active {
   transform: scale(0.95);
 }
 
@@ -334,6 +331,10 @@ input[type="checkbox"]:checked + label {
   position: relative;
   top: -2px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btn-editmsg:hover {
+  background-color: var(--color-bg-main);
 }
 
 .btn:active {

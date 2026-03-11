@@ -25,7 +25,7 @@ const DOM = {
     assistentName: document.getElementById("assistent-name"),
     msgSelected: document.getElementById("wpp-message"),
     greetingMsg: document.getElementById("greeting"),
-    respPerson: document.getElementsByName("personSelected"),
+    respPerson: [...document.querySelectorAll("input[name=personSelected]")],
   },
   buttons: {
     msgGenerator: document.getElementById("btn-message"),
@@ -38,83 +38,69 @@ const DOM = {
   },
 };
 
-// Inputs
-// const inputElements = {
-//   clienteName: document.getElementById("client-name"),
-//   wppNumber: document.getElementById("client-phone-number"),
-//   managerName: document.getElementById("manager-name"),
-//   assistentName: document.getElementById("assistent-name"),
-//   msgSelected: document.getElementById("wpp-message"),
-//   greetingMsg: document.getElementById("greeting"),
-//   respPerson: document.getElementsByName("personSelected"),
-// };
-// // Buttons
-// const btnElements = {
-//   msgGenerator: document.getElementById("btn-message"),
-//   qrCodeGenerator: document.getElementById("btn-qrcode"),
-//   editMsg: document.getElementById("edit-message"),
-// };
-// // Outputs
-// const outputElements = {
-//   msgArea: document.getElementById("message-area"),
-//   qrCodeArea: document.getElementById("qrCode-area"),
-// };
+// --- FEATS
+const editBtn = (inputElement, outputElement) => {};
 
 // --- FUNCTIONS
 function selectRespPerson() {
-  return DOM.inputs.respPerson.find((radio) => radio.checked) || null;
+  return DOM.inputs.respPerson.find((radio) => radio.checked).value || null;
 }
-
-// --- TESTE
-btnElements["qrCodeGenerator"].addEventListener("click", () => {
-  alert(selectRespPerson().value);
-});
-
-btnElements["msgGenerator"].addEventListener("click", () => {
-  // if (addGreeting()) {
-  if (inputElements["greetingMsg"].checked) {
-    outputElements["msgArea"].value = `${msg["greeting"]}
-
-${msg[`${selectSupport()}Intro`]}`;
-  }
-});
-
-inputElements["msgSelected"].addEventListener("change", () => {
-  // const msg = inputElements["msgSelected"].value;
-  // alert(msg);
-  alert(inputElements["msgSelected"].value);
-});
 
 // --- EVENTS
-
-//  *** CODE ***
-function addGreeting() {
-  return inputElements["greetingMsg"].checked;
-}
-
-function selectSupport() {
-  return document.querySelector('input[name="personSelected"]:checked').value;
-}
-
-// --- EVENT LISTENER
-selectMessageElement.addEventListener("change", () => {
-  const messageSelected = selectMessageElement.value;
-
-  if (messageSelected == "personalizada") {
-    textAreaElement.value = messageSelected;
-    textAreaElement.disabled = false;
-    textAreaElement.focus();
-  } else {
-    textAreaElement.value = messageSelected;
-    textAreaElement.disabled = true;
-  }
+DOM.buttons.qrCodeGenerator.addEventListener("click", () => {
+  alert(selectRespPerson());
 });
 
-editMessageElement.addEventListener("click", () => {
-  if (textAreaElement.disabled) {
-    textAreaElement.disabled = false;
-    textAreaElement.focus();
-  } else {
-    textAreaElement.disabled = true;
-  }
-});
+// // --- TESTE
+// btnElements["qrCodeGenerator"].addEventListener("click", () => {
+//   alert(selectRespPerson().value);
+// });
+
+// btnElements["msgGenerator"].addEventListener("click", () => {
+//   // if (addGreeting()) {
+//   if (inputElements["greetingMsg"].checked) {
+//     outputElements["msgArea"].value = `${msg["greeting"]}
+
+// ${msg[`${selectSupport()}Intro`]}`;
+//   }
+// });
+
+// inputElements["msgSelected"].addEventListener("change", () => {
+//   // const msg = inputElements["msgSelected"].value;
+//   // alert(msg);
+//   alert(inputElements["msgSelected"].value);
+// });
+
+// // --- EVENTS
+
+// //  *** CODE ***
+// function addGreeting() {
+//   return inputElements["greetingMsg"].checked;
+// }
+
+// function selectSupport() {
+//   return document.querySelector('input[name="personSelected"]:checked').value;
+// }
+
+// // --- EVENT LISTENER
+// selectMessageElement.addEventListener("change", () => {
+//   const messageSelected = selectMessageElement.value;
+
+//   if (messageSelected == "personalizada") {
+//     textAreaElement.value = messageSelected;
+//     textAreaElement.disabled = false;
+//     textAreaElement.focus();
+//   } else {
+//     textAreaElement.value = messageSelected;
+//     textAreaElement.disabled = true;
+//   }
+// });
+
+// editMessageElement.addEventListener("click", () => {
+//   if (textAreaElement.disabled) {
+//     textAreaElement.disabled = false;
+//     textAreaElement.focus();
+//   } else {
+//     textAreaElement.disabled = true;
+//   }
+// });
