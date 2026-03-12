@@ -53,6 +53,8 @@ const setupTextAreaToggle = (triggerElement, targetElement) => {
 
   const activateTargetElement = (e) => {
     e.focus();
+    const length = e.value.length;
+    e.setSelectionRange(length, length);
   };
 
   triggerElement.addEventListener("click", handleToggleEdit);
