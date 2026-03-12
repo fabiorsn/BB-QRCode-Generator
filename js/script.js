@@ -28,7 +28,9 @@ const DOM = {
     respPerson: [...document.querySelectorAll("input[name=personSelected]")],
   },
   buttons: {
-    msgGenerator: document.getElementById("btn-message"),
+    get msgGenerator() {
+      return document.getElementById("btn-message");
+    },
     qrCodeGenerator: document.getElementById("btn-qrcode"),
     editMsg: document.getElementById("btn-editmsg"),
   },
