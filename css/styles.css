@@ -291,7 +291,7 @@ input[type="checkbox"]:checked + label {
 
 .message-container textarea {
   height: 248px;
-  padding: 16px;
+  padding: 16px 44px 16px 16px;
   margin-top: 4px;
   overflow: auto;
 

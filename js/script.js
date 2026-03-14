@@ -30,7 +30,8 @@ const DOM = {
     msgSelected: document.getElementById("wpp-message"),
     greetingMsg: document.getElementById("greeting"),
     get respPerson() {
-      return Array.from(document.querySelectorAll("input[name=personSelected]"));
+      return document.querySelector("input[name=personSelected]:checked");
+      // return Array.from(document.querySelectorAll("input[name=personSelected]:checked")); -> seleciona todos os radios
     },
   },
   buttons: {
@@ -73,23 +74,21 @@ const setupTextAreaToggle = (triggerElement, targetElement) => {
     e.setSelectionRange(length, length);
   };
 
-  triggerElement.addEventListener("click", handleToggleEdit);
+  triggerElement.addEventListener("click", () => handleToggleEdit());
 };
 setupTextAreaToggle(DOM.buttons.editMsg, DOM.outputs.msgArea);
 
 // * GENERATOR MESSAGE
 const showTextMessage = (triggerElement, inputArrayData) => {
-  if (!triggerElement) return;
+  if (!triggerElement || !inputArrayData?.respPerson) return;
 
-  const showAlert = () => {
-    inputArrayData.respPerson.forEach((element) => {
-      if (element.checked) {
-        alert(element.value);
-      }
-    });
+  const getRespPerson = (radioSelect) => {
+    alert(radioSelect.respPerson.value);
   };
 
-  triggerElement.addEventListener("click", showAlert);
+  // DOM.outputs.msgArea.value = getRespPerson();
+
+  triggerElement.addEventListener("click", () => getRespPerson(inputArrayData));
 };
 showTextMessage(DOM.buttons.msgGenerator, DOM.inputs);
 
