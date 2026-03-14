@@ -19,13 +19,20 @@ Se precisar de alguma orientação personalizada, pode contar comigo por aqui!`,
 // DOM Elements
 const DOM = {
   inputs: {
-    clienteName: document.getElementById("client-name"),
-    wppNumber: document.getElementById("client-phone-number"),
+    get clientName() {
+      return document.getElementById("client-name");
+    },
+    get wppNumber() {
+      return document.getElementById("client-phone-number");
+    },
     managerName: document.getElementById("manager-name"),
     assistentName: document.getElementById("assistent-name"),
     msgSelected: document.getElementById("wpp-message"),
     greetingMsg: document.getElementById("greeting"),
-    respPerson: [...document.querySelectorAll("input[name=personSelected]")],
+    get respPerson() {
+      return document.querySelector("input[name=personSelected]:checked");
+      // return Array.from(document.querySelectorAll("input[name=personSelected]:checked")); -> seleciona todos os radios
+    },
   },
   buttons: {
     get msgGenerator() {
@@ -35,18 +42,26 @@ const DOM = {
     editMsg: document.getElementById("btn-editmsg"),
   },
   outputs: {
-    msgArea: document.getElementById("message-area"),
+    get msgArea() {
+      return document.getElementById("message-area");
+    },
     qrCodeArea: document.getElementById("qrCode-area"),
   },
 };
 
 // --- FEATS - BUTTONS
+
+// * EDIT MESSAGE
 const setupTextAreaToggle = (triggerElement, targetElement) => {
   if (!triggerElement || !targetElement) return;
 
   const handleToggleEdit = () => {
     const { readOnly } = targetElement; // same as: const isReadOnly = targetElement.readOnly;
     targetElement.readOnly = !readOnly;
+
+    triggerElement.classList.toggle("enabled-bg", !targetElement.readOnly);
+    triggerElement.classList.toggle("disabled-bg", targetElement.readOnly);
+    triggerElement.setAttribute("aria-pressed", !targetElement.readOnly);
 
     if (!targetElement.readOnly) {
       activateTargetElement(targetElement);
@@ -59,10 +74,23 @@ const setupTextAreaToggle = (triggerElement, targetElement) => {
     e.setSelectionRange(length, length);
   };
 
-  triggerElement.addEventListener("click", handleToggleEdit);
+  triggerElement.addEventListener("click", () => handleToggleEdit());
 };
-
 setupTextAreaToggle(DOM.buttons.editMsg, DOM.outputs.msgArea);
+
+// * GENERATOR MESSAGE
+const showTextMessage = (triggerElement, inputArrayData) => {
+  if (!triggerElement || !inputArrayData?.respPerson) return;
+
+  const getRespPerson = (radioSelect) => {
+    alert(radioSelect.respPerson.value);
+  };
+
+  // DOM.outputs.msgArea.value = getRespPerson();
+
+  triggerElement.addEventListener("click", () => getRespPerson(inputArrayData));
+};
+showTextMessage(DOM.buttons.msgGenerator, DOM.inputs);
 
 // function toggleTextAreaEdit(inputElement, outputElement) {
 //   inputElement.addEventListener("click", () => {
