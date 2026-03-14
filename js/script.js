@@ -79,18 +79,21 @@ const setupTextAreaToggle = (triggerElement, targetElement) => {
 setupTextAreaToggle(DOM.buttons.editMsg, DOM.outputs.msgArea);
 
 // * GENERATOR MESSAGE
-const showTextMessage = (triggerElement, inputArrayData) => {
+const showTextMessage = (triggerElement, inputArrayData, targetElement) => {
   if (!triggerElement || !inputArrayData?.respPerson) return;
 
+  const msg = targetElement;
+
   const getRespPerson = (radioSelect) => {
-    alert(radioSelect.respPerson.value);
+    // alert(radioSelect.respPerson.value);
+    msg.value = radioSelect.respPerson.value;
   };
 
   // DOM.outputs.msgArea.value = getRespPerson();
 
   triggerElement.addEventListener("click", () => getRespPerson(inputArrayData));
 };
-showTextMessage(DOM.buttons.msgGenerator, DOM.inputs);
+showTextMessage(DOM.buttons.msgGenerator, DOM.inputs, DOM.outputs.msgArea);
 
 // function toggleTextAreaEdit(inputElement, outputElement) {
 //   inputElement.addEventListener("click", () => {
