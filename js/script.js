@@ -35,7 +35,9 @@ const DOM = {
     editMsg: document.getElementById("btn-editmsg"),
   },
   outputs: {
-    msgArea: document.getElementById("message-area"),
+    get msgArea() {
+      return document.getElementById("message-area");
+    },
     qrCodeArea: document.getElementById("qrCode-area"),
   },
 };
@@ -47,6 +49,10 @@ const setupTextAreaToggle = (triggerElement, targetElement) => {
   const handleToggleEdit = () => {
     const { readOnly } = targetElement; // same as: const isReadOnly = targetElement.readOnly;
     targetElement.readOnly = !readOnly;
+
+    triggerElement.classList.toggle("enabled-bg", !targetElement.readOnly);
+    triggerElement.classList.toggle("disabled-bg", targetElement.readOnly);
+    triggerElement.setAttribute("aria-pressed", !targetElement.readOnly);
 
     if (!targetElement.readOnly) {
       activateTargetElement(targetElement);
@@ -61,7 +67,6 @@ const setupTextAreaToggle = (triggerElement, targetElement) => {
 
   triggerElement.addEventListener("click", handleToggleEdit);
 };
-
 setupTextAreaToggle(DOM.buttons.editMsg, DOM.outputs.msgArea);
 
 // function toggleTextAreaEdit(inputElement, outputElement) {

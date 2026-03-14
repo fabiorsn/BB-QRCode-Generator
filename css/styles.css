@@ -314,7 +314,14 @@ input[type="checkbox"]:checked + label {
 
   border: none;
   border-radius: 2px;
+}
+
+.disabled-bg {
   background-color: var(--color-bg-main);
+}
+
+.enabled-bg {
+  background-color: var(--brand-secondary-color);
 }
 
 .btn-editmsg img {
@@ -334,7 +341,7 @@ input[type="checkbox"]:checked + label {
 }
 
 .btn-editmsg:hover {
-  background-color: var(--brand-secondary-color);
+  background-color: var(--brand-primary-color);
 }
 
 .btn:active {
