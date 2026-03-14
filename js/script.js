@@ -19,13 +19,19 @@ Se precisar de alguma orientação personalizada, pode contar comigo por aqui!`,
 // DOM Elements
 const DOM = {
   inputs: {
-    clienteName: document.getElementById("client-name"),
-    wppNumber: document.getElementById("client-phone-number"),
+    get clientName() {
+      return document.getElementById("client-name");
+    },
+    get wppNumber() {
+      return document.getElementById("client-phone-number");
+    },
     managerName: document.getElementById("manager-name"),
     assistentName: document.getElementById("assistent-name"),
     msgSelected: document.getElementById("wpp-message"),
     greetingMsg: document.getElementById("greeting"),
-    respPerson: [...document.querySelectorAll("input[name=personSelected]")],
+    get respPerson() {
+      return Array.from(document.querySelectorAll("input[name=personSelected]"));
+    },
   },
   buttons: {
     get msgGenerator() {
@@ -43,6 +49,8 @@ const DOM = {
 };
 
 // --- FEATS - BUTTONS
+
+// * EDIT MESSAGE
 const setupTextAreaToggle = (triggerElement, targetElement) => {
   if (!triggerElement || !targetElement) return;
 
@@ -68,6 +76,22 @@ const setupTextAreaToggle = (triggerElement, targetElement) => {
   triggerElement.addEventListener("click", handleToggleEdit);
 };
 setupTextAreaToggle(DOM.buttons.editMsg, DOM.outputs.msgArea);
+
+// * GENERATOR MESSAGE
+const showTextMessage = (triggerElement, inputArrayData) => {
+  if (!triggerElement) return;
+
+  const showAlert = () => {
+    inputArrayData.respPerson.forEach((element) => {
+      if (element.checked) {
+        alert(element.value);
+      }
+    });
+  };
+
+  triggerElement.addEventListener("click", showAlert);
+};
+showTextMessage(DOM.buttons.msgGenerator, DOM.inputs);
 
 // function toggleTextAreaEdit(inputElement, outputElement) {
 //   inputElement.addEventListener("click", () => {
