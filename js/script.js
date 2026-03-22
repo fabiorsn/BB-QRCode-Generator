@@ -1,20 +1,4 @@
-// --- BASE DE DADOS
-const msg = {
-  greeting: `Olá, *{clientName}*! Tudo bem?`,
-
-  assistentIntro: `Aqui é o *{assistentName}*, assistente {of} *{managerName}*, {your} Gerente Estilo BB.`,
-
-  managerIntro: `Aqui é o *{managerName}*, {your} Gerente Estilo BB.`,
-
-  agendaRelacional: `*{firstNameClient}*, passando para saber como você está e reforçar que estou à disposição para ajudar em qualquer demanda no Banco do Brasil — seja *crédito, investimentos, seguros, financiamentos, consórcios ou cartões*.\nSe precisar de alguma orientação personalizada, pode contar comigo por aqui!`,
-
-  universoOurocard: `Universo Ourocard`,
-  rendeFacil: `Rende Facil`,
-  personalizada: `Personalizada`,
-};
-
-// --- GETTING ELEMENTS
-// DOM Elements
+// --- DOM Elements
 const DOM = {
   inputs: {
     get clientName() {
@@ -44,18 +28,137 @@ const DOM = {
     get msgGenerator() {
       return document.getElementById("btn-message");
     },
-    qrCodeGenerator: document.getElementById("btn-qrcode"),
-    editMsg: document.getElementById("btn-editmsg"),
+    get qrCodeGenerator() {
+      return document.getElementById("btn-qrcode");
+    },
+    get editMsg() {
+      return document.getElementById("btn-editmsg");
+    },
   },
   outputs: {
     get msgArea() {
       return document.getElementById("message-area");
     },
-    qrCodeArea: document.getElementById("qrCode-area"),
+    get qrCodeArea() {
+      return document.getElementById("qrCode-area");
+    },
   },
 };
 
+// --- BASE DE DADOS
+const dbPreposicao = ["de", "do", "da", "dos", "das"];
+const dbControlPronome = {
+  F: ["da", "sua"],
+  M: ["do", "seu"],
+};
+const dbCarteira = [
+  { carteira: "18", nome: "Maria de Fátima", sexo: "F" },
+  { carteira: "19", nome: "Wallyson", sexo: "M" },
+  { carteira: "20", nome: "Nei Evandro", sexo: "M" },
+  { carteira: "21", nome: "Adriano", sexo: "M" },
+  { carteira: "22", nome: "Rodrigo", sexo: "M" },
+  { carteira: "24", nome: "Rogério", sexo: "M" },
+  { carteira: "46", nome: "Najara", sexo: "F" },
+  { carteira: "47", nome: "", sexo: "" },
+  { carteira: "51", nome: "Rubens", sexo: "M" },
+  { carteira: "52", nome: "Rafael", sexo: "M" },
+];
+const dbMensagemSelect = [
+  { value: "agendaRelacional", text: "Agenda Relacional" },
+  { value: "universoOurocard", text: "Universo Ourocard" },
+  { value: "rendeFacil", text: "Rende Fácil" },
+];
+const dbMensagens = {
+  introducao: {
+    geral: "Olá, *{nomeCliente}*! Tudo bem?",
+    assistente: `Aqui é o *{nomeAssistente}*, assistente {of} *{nomeGerente}*, {your} Gerente Estilo BB.`,
+    gerente: `Aqui é o *{nomeGerente}*, {your} Gerente Estilo BB.`,
+  },
+  produto: {
+    agendaRelacional: `*{primeiroNomeCliente}*, passando para saber como você está e reforçar que estou à disposição para ajudar em qualquer demanda relacionada ao Banco do Brasil - seja *crédito, investimento, seguro, financiamento, consórcio, cartão ou outra demanada*.\n\nSe precisar de alguma orientação personalizada, pode contar conosco por aqui! ❤️📲`,
+    universoOurocard: `Quero aproveitar para te falar de um benefício que muitos clientes Estilo têm gostado `,
+    rendeFacil: `Rende Fácil`,
+  },
+  fechamento: {
+    assistente: `Se precisar de alguma orientação personalizada, pode contar conosco por aqui! ❤️📲`,
+    gerente: `Se precisar de alguma orientação personalizada, pode contar comigo por aqui! ❤️📲`,
+  },
+};
+
+// --- CREATE SELECTS
+const createSelectOption = (dataSource, targetElement, valueField, textField) => {
+  dataSource.forEach((item) => {
+    if (!item[textField]) return;
+
+    const option = document.createElement("option");
+    option.value = item[valueField];
+    option.textContent = item[textField];
+    targetElement.appendChild(option);
+  });
+};
+
+try {
+  createSelectOption(dbCarteira, DOM.inputs.managerName, "carteira", "nome");
+  createSelectOption(dbMensagemSelect, DOM.inputs.msgSelected, "value", "text");
+} catch (error) {
+  console.error("Erro ao criar o select:", error);
+}
+
+// --- GETTING ELEMENTS
+
 // *-*-*- version 001
+DOM.buttons.msgGenerator.addEventListener("click", () => {
+  const editName = (rawName) => {
+    return rawName.trim().replace(/\s+/g, " ");
+  };
+  const editClientName = (rawName) => {
+    if (!rawName) return;
+    const dbPronomeTratamento = ["sr", "sra", "dr", "dra", "sgto", "sgta"];
+
+    const namePart = editName(rawName).split(" ");
+    const tratamento = dbPronomeTratamento.includes(namePart[0].toLowerCase().replace(".", "")) ? namePart.shift() : ""; // remove pronome e salva
+    const preposicao = dbPreposicao.includes(namePart.at(-2)) ? namePart.at(-2) : "";
+    const clientName = `${tratamento} ${namePart[0]} ${preposicao} ${namePart.at(-1)}`;
+
+    return {
+      firstName: namePart[0],
+      name: editName(clientName),
+    };
+  };
+  const getManagerData = (dataSource, selectValue) => {
+    if (!dataSource || !selectValue) return;
+
+    return dataSource.find((ctrNum) => ctrNum.carteira === selectValue);
+  };
+  const editFinalMessage = (cName, wGroup, aName, gMsg, pMsg) => {
+    const editC = editClientName(cName);
+    const c = editC.name;
+    const fc = editC.firstName;
+    const g = wGroup.nome;
+    const a = editName(aName);
+
+    const rawMsgFinal = gMsg + pMsg;
+    const finalMessage = rawMsgFinal
+      .replaceAll("{nomeCliente}", c)
+      .replaceAll("{primeiroNomeCliente}", fc)
+      .replaceAll("{nomeAssistente}", a)
+      .replaceAll("{of}", dbControlPronome[wGroup.sexo][0])
+      .replaceAll("{your}", dbControlPronome[wGroup.sexo][1])
+      .replaceAll("{nomeGerente}", g);
+
+    return finalMessage;
+  };
+
+  const inputCName = DOM.inputs.clientName.value;
+  const inputCarteira = getManagerData(dbCarteira, DOM.inputs.managerName.value);
+  const inputAName = DOM.inputs.assistentName.value;
+  const isGreetingChecked = DOM.inputs.greetingMsg.checked;
+  const inputRP = DOM.inputs.respPerson.value;
+  const tmplMsg = isGreetingChecked ? `${dbMensagens.introducao.geral}\n\n${dbMensagens.introducao[inputRP]}\n\n` : "";
+  const mp = dbMensagens.produto[DOM.inputs.msgSelected.value];
+
+  DOM.outputs.msgArea.value = editFinalMessage(inputCName, inputCarteira, inputAName, tmplMsg, mp);
+});
 
 // QR CODE Button
 DOM.buttons.qrCodeGenerator.addEventListener("click", () => {
