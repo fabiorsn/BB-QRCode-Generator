@@ -329,8 +329,9 @@ input[type="checkbox"]:checked + label {
   padding: 4px;
 }
 
-.message-container button img:active {
-  transform: scale(0.95);
+.message-container button img:active,
+.btn-editmsg:active {
+  transform: scale(0.9);
 }
 
 /* --- HOVER --- */
@@ -348,7 +349,7 @@ input[type="checkbox"]:checked + label {
   transform: scale(0.98);
 }
 
-label::after {
+/* label::after {
   content: "*";
   font-size: smaller;
   font-weight: 100;
@@ -356,8 +357,8 @@ label::after {
   position: relative;
   top: -4px;
   left: 1px;
-}
+} */
 
-.noRequired::after {
+/* .noRequired::after {
   content: "";
-}
+} */
