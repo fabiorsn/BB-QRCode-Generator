@@ -162,7 +162,8 @@ DOM.buttons.msgGenerator.addEventListener("click", () => {
 
 // QR CODE Button
 DOM.buttons.qrCodeGenerator.addEventListener("click", () => {
-  if (!DOM.outputs.msgArea.value || !DOM.inputs.wppNumber.value) return alert("Preencha os dados!");
+  if (!DOM.outputs.msgArea.value) return alert("Gere a mensagem!");
+  if (!DOM.inputs.wppNumber.value) return alert("Preencha o número de telefone!");
 
   const n = DOM.inputs.wppNumber.value.replace(/\D/g, "");
   const m = encodeURIComponent(DOM.outputs.msgArea.value);
