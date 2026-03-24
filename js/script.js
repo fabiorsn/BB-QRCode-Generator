@@ -106,7 +106,7 @@ try {
 
 // --- GETTING ELEMENTS
 
-// *-*-*- version 001
+// *-*-*- version 002
 DOM.buttons.msgGenerator.addEventListener("click", () => {
   const editName = (rawName) => {
     return rawName.trim().replace(/\s+/g, " ");
@@ -176,3 +176,38 @@ DOM.buttons.qrCodeGenerator.addEventListener("click", () => {
     correctLevel: QRCode.CorrectLevel.L,
   });
 });
+
+const setupBtnEdit = (triggerElement, targetElement) => {
+  const toggleBtnBg = (btn) => {
+    btn.classList.toggle("disabled-bg");
+    btn.classList.toggle("enabled-bg");
+  };
+
+  const toggleEdition = (msg) => {
+    msg.readOnly = !msg.readOnly;
+    return !msg.readOnly;
+  };
+
+  const setCursorAtEnd = (msg) => {
+    msg.focus();
+
+    const textLength = msg.value.length;
+    msg.setSelectionRange(textLength, textLength);
+  };
+
+  triggerElement.addEventListener("click", () => {
+    toggleBtnBg(triggerElement);
+
+    const isEditing = toggleEdition(targetElement);
+
+    if (isEditing) {
+      setCursorAtEnd(targetElement);
+    }
+  });
+};
+
+setupBtnEdit(DOM.buttons.editMsg, DOM.outputs.msgArea);
+
+// DOM.buttons.editMsg.addEventListener("click", () => {
+//   alert(DOM.buttons.editMsg.classList);
+// });
