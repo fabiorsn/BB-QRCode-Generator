@@ -75,13 +75,13 @@ const dbMensagens = {
     gerente: `*{nomeGerente}* aqui, {your} Gerente Estilo BB.`,
   },
   produto: {
-    agendaRelacional: `*{primeiroNomeCliente}*, passando para saber como você está e reforçar que estou à disposição para ajudar em qualquer demanda relacionada ao Banco do Brasil - seja *crédito, investimento, seguro, financiamento, consórcio, cartão ou outra demanada*.\n\nSe precisar de alguma orientação personalizada, pode contar conosco por aqui! 📲`,
+    agendaRelacional: `*{primeiroNomeCliente}*, passando para saber como você está e reforçar que estou à disposição para ajudar em qualquer demanda relacionada ao Banco do Brasil - seja *crédito, investimento, seguro, financiamento, consórcio, cartão ou outra demanda*.`,
     universoOurocard: `Quero aproveitar para te falar de um benefício que muitos clientes Estilo têm gostado bastante: o *Universo Ourocard*.\n\n⭐É a plataforma de recompensas dos cartões BB, onde você ganha prêmios, cupons missões e vantagens exclusivas apenas por usar seu cartão no dia a dia.\n\nPara participar é bem simples:\n👉 Acesse: https://www.universoourocard.com.br/\n📲 Ou no App BB: *Menu > Cartões > Benefícios e promoções > Universo Ourocard*.`,
-    rendeFacil: `Outro benefício importante que você pode ativer é o **BB Rende Fácil**, o novo modelo de conta Estilo que faz o seu saldo render todos os dias automaticamente, sem precisar investir por conta própria e sem custos para adesão.\n\n❤️📱 Para ativar:\n📲 Acesse: *App BB > Notificações > Pendência de Confirmação > BB Rende Fácil*.`,
+    rendeFacil: `Outro benefício importante que você pode ativer é o **BB Rende Fácil**, o novo modelo de conta Estilo que faz o seu saldo render todos os dias automaticamente, sem precisar investir por conta própria e sem custos para adesão.\n\nPara ativar:\n📲 Acesse: *App BB > Notificações > Pendência de Confirmação > BB Rende Fácil*.`,
   },
   fechamento: {
-    assistente: `Se precisar de alguma orientação personalizada, pode contar conosco por aqui! 📲`,
-    gerente: `Se precisar de alguma orientação personalizada, pode contar comigo por aqui! 📲`,
+    assistente: `Se precisar de alguma orientação personalizada, pode contar conosco por aqui ou pelos canais oficiais do BB! 📲`,
+    gerente: `Se precisar de alguma orientação personalizada, pode contar comigo por aqui ou pelos canais oficiais do BB! 📲`,
   },
 };
 
@@ -155,7 +155,10 @@ DOM.buttons.msgGenerator.addEventListener("click", () => {
   const isGreetingChecked = DOM.inputs.greetingMsg.checked;
   const inputRP = DOM.inputs.respPerson.value;
   const tmplMsg = isGreetingChecked ? `${dbMensagens.introducao.geral}\n\n${dbMensagens.introducao[inputRP]}\n\n` : "";
-  const mp = dbMensagens.produto[DOM.inputs.msgSelected.value];
+  let mp = dbMensagens.produto[DOM.inputs.msgSelected.value];
+  mp += DOM.inputs.msgSelected.value === "agendaRelacional" ? `\n\n${dbMensagens.fechamento[DOM.inputs.respPerson.value]}` : "";
+
+  // const mp = DOM.inputs.msgSelected.value === "agendaRelacional"?
 
   DOM.outputs.msgArea.value = editFinalMessage(inputCName, inputCarteira, inputAName, tmplMsg, mp);
 });
