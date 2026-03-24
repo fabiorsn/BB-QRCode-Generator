@@ -164,21 +164,52 @@ DOM.buttons.msgGenerator.addEventListener("click", () => {
 });
 
 // QR CODE Button
-DOM.buttons.qrCodeGenerator.addEventListener("click", () => {
-  if (!DOM.outputs.msgArea.value) return alert("Gere a mensagem!");
-  if (!DOM.inputs.wppNumber.value) return alert("Preencha o número de telefone!");
+/**
+ * @param {HTMLButtonElement} triggerElement - O botão que dispara a criação do QR Codee
+ * @param {object} objInputData - Objeto contendo { phone, message}
+ * @param {HTMLDivElement} qrArea - A div onde o QR Code será renderizado
+ */
 
-  const n = DOM.inputs.wppNumber.value.replace(/\D/g, "");
-  const m = encodeURIComponent(DOM.outputs.msgArea.value);
-  const qrcodeEle = DOM.outputs.qrCodeArea;
-  qrcodeEle.innerHTML = "";
-  new QRCode(qrcodeEle, {
-    text: `https://wa.me/55${n}?text=${m}`,
-    width: parseInt(window.getComputedStyle(qrcodeEle).width, 10),
-    height: parseInt(window.getComputedStyle(qrcodeEle).height, 10),
-    correctLevel: QRCode.CorrectLevel.L,
+const createWppQrCode = (triggerElement, objInputData, qrArea) => {
+  const formatPhoneNumber = (num) => {
+    return num.replace(/\D/g, "");
+  };
+
+  const buildWppUrl = (phone, message) => {
+    const n = formatPhoneNumber(phone);
+    const m = encodeURIComponent(message);
+    return `https://wa.me/55${n}?text=${m}`;
+  };
+
+  const renderQRCode = (divEle, txt) => {
+    const wSize = divEle.getBoundingClientRect().width;
+    const hSize = divEle.getBoundingClientRect().height;
+
+    divEle.innerHTML = "";
+    new QRCode(divEle, {
+      text: txt,
+      width: wSize,
+      height: hSize,
+      correctLevel: QRCode.CorrectLevel.L,
+    });
+  };
+
+  triggerElement.addEventListener("click", () => {
+    const phoneValue = objInputData.phone.value;
+    const messageValue = objInputData.message.value;
+
+    if (!phoneValue) {
+      alert("Atenção: número de telefone não fornecido!");
+      objInputData.phone.focus();
+      return;
+    }
+
+    const txtUrl = buildWppUrl(phoneValue, messageValue);
+    renderQRCode(qrArea, txtUrl);
   });
-});
+};
+
+createWppQrCode(DOM.buttons.qrCodeGenerator, { phone: DOM.inputs.wppNumber, message: DOM.outputs.msgArea }, DOM.outputs.qrCodeArea);
 
 // Edit Message Button
 const setupBtnEdit = (triggerElement, targetElement) => {
