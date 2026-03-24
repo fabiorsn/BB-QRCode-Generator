@@ -75,13 +75,13 @@ const dbMensagens = {
     gerente: `*{nomeGerente}* aqui, {your} Gerente Estilo BB.`,
   },
   produto: {
-    agendaRelacional: `*{primeiroNomeCliente}*, passando para saber como você está e reforçar que estou à disposição para ajudar em qualquer demanda relacionada ao Banco do Brasil - seja *crédito, investimento, seguro, financiamento, consórcio, cartão ou outra demanada*.\n\nSe precisar de alguma orientação personalizada, pode contar conosco por aqui! 📲`,
+    agendaRelacional: `*{primeiroNomeCliente}*, passando para saber como você está e reforçar que estou à disposição para ajudar em qualquer demanda relacionada ao Banco do Brasil - seja *crédito, investimento, seguro, financiamento, consórcio, cartão ou outra demanda*.`,
     universoOurocard: `Quero aproveitar para te falar de um benefício que muitos clientes Estilo têm gostado bastante: o *Universo Ourocard*.\n\n⭐É a plataforma de recompensas dos cartões BB, onde você ganha prêmios, cupons missões e vantagens exclusivas apenas por usar seu cartão no dia a dia.\n\nPara participar é bem simples:\n👉 Acesse: https://www.universoourocard.com.br/\n📲 Ou no App BB: *Menu > Cartões > Benefícios e promoções > Universo Ourocard*.`,
-    rendeFacil: `Outro benefício importante que você pode ativer é o **BB Rende Fácil**, o novo modelo de conta Estilo que faz o seu saldo render todos os dias automaticamente, sem precisar investir por conta própria e sem custos para adesão.\n\n❤️📱 Para ativar:\n📲 Acesse: *App BB > Notificações > Pendência de Confirmação > BB Rende Fácil*.`,
+    rendeFacil: `Outro benefício importante que você pode ativer é o **BB Rende Fácil**, o novo modelo de conta Estilo que faz o seu saldo render todos os dias automaticamente, sem precisar investir por conta própria e sem custos para adesão.\n\nPara ativar:\n📲 Acesse: *App BB > Notificações > Pendência de Confirmação > BB Rende Fácil*.`,
   },
   fechamento: {
-    assistente: `Se precisar de alguma orientação personalizada, pode contar conosco por aqui! 📲`,
-    gerente: `Se precisar de alguma orientação personalizada, pode contar comigo por aqui! 📲`,
+    assistente: `Se precisar de alguma orientação personalizada, pode contar conosco por aqui ou pelos canais oficiais do BB! 📲`,
+    gerente: `Se precisar de alguma orientação personalizada, pode contar comigo por aqui ou pelos canais oficiais do BB! 📲`,
   },
 };
 
@@ -155,29 +155,68 @@ DOM.buttons.msgGenerator.addEventListener("click", () => {
   const isGreetingChecked = DOM.inputs.greetingMsg.checked;
   const inputRP = DOM.inputs.respPerson.value;
   const tmplMsg = isGreetingChecked ? `${dbMensagens.introducao.geral}\n\n${dbMensagens.introducao[inputRP]}\n\n` : "";
-  const mp = dbMensagens.produto[DOM.inputs.msgSelected.value];
+  let mp = dbMensagens.produto[DOM.inputs.msgSelected.value];
+  mp += DOM.inputs.msgSelected.value === "agendaRelacional" ? `\n\n${dbMensagens.fechamento[DOM.inputs.respPerson.value]}` : "";
+
+  // const mp = DOM.inputs.msgSelected.value === "agendaRelacional"?
 
   DOM.outputs.msgArea.value = editFinalMessage(inputCName, inputCarteira, inputAName, tmplMsg, mp);
 });
 
 // QR CODE Button
-DOM.buttons.qrCodeGenerator.addEventListener("click", () => {
-  if (!DOM.outputs.msgArea.value) return alert("Gere a mensagem!");
-  if (!DOM.inputs.wppNumber.value) return alert("Preencha o número de telefone!");
+/**
+ * @param {HTMLButtonElement} triggerElement - O botão que dispara a criação do QR Codee
+ * @param {object} objInputData - Objeto contendo { phone, message}
+ * @param {HTMLDivElement} qrArea - A div onde o QR Code será renderizado
+ */
 
-  const n = DOM.inputs.wppNumber.value.replace(/\D/g, "");
-  const m = encodeURIComponent(DOM.outputs.msgArea.value);
-  const qrcodeEle = DOM.outputs.qrCodeArea;
-  qrcodeEle.innerHTML = "";
-  new QRCode(qrcodeEle, {
-    text: `https://wa.me/55${n}?text=${m}`,
-    width: parseInt(window.getComputedStyle(qrcodeEle).width, 10),
-    height: parseInt(window.getComputedStyle(qrcodeEle).height, 10),
-    correctLevel: QRCode.CorrectLevel.L,
+const createWppQrCode = (triggerElement, objInputData, qrArea) => {
+  const formatPhoneNumber = (num) => {
+    return num.replace(/\D/g, "");
+  };
+
+  const buildWppUrl = (phone, message) => {
+    const n = formatPhoneNumber(phone);
+    const m = encodeURIComponent(message);
+    return `https://wa.me/55${n}?text=${m}`;
+  };
+
+  const renderQRCode = (divEle, txt) => {
+    const wSize = divEle.getBoundingClientRect().width;
+    const hSize = divEle.getBoundingClientRect().height;
+
+    divEle.innerHTML = "";
+    new QRCode(divEle, {
+      text: txt,
+      width: wSize,
+      height: hSize,
+      correctLevel: QRCode.CorrectLevel.L,
+    });
+  };
+
+  triggerElement.addEventListener("click", () => {
+    const phoneValue = objInputData.phone.value;
+    const messageValue = objInputData.message.value;
+
+    if (!phoneValue) {
+      alert("Atenção: número de telefone não fornecido!");
+      objInputData.phone.focus();
+      return;
+    }
+
+    const txtUrl = buildWppUrl(phoneValue, messageValue);
+    renderQRCode(qrArea, txtUrl);
   });
-});
+};
+
+createWppQrCode(DOM.buttons.qrCodeGenerator, { phone: DOM.inputs.wppNumber, message: DOM.outputs.msgArea }, DOM.outputs.qrCodeArea);
 
 // Edit Message Button
+/**
+ * @param {HTMLButtonElement} triggerElement - Botão que habilita edição da área de texto
+ * @param {HTMLTextAreaElement} targetElement - Campo de edição de texto
+ */
+
 const setupBtnEdit = (triggerElement, targetElement) => {
   const toggleBtnBg = (btn) => {
     btn.classList.toggle("disabled-bg");
