@@ -212,6 +212,11 @@ const createWppQrCode = (triggerElement, objInputData, qrArea) => {
 createWppQrCode(DOM.buttons.qrCodeGenerator, { phone: DOM.inputs.wppNumber, message: DOM.outputs.msgArea }, DOM.outputs.qrCodeArea);
 
 // Edit Message Button
+/**
+ * @param {HTMLButtonElement} triggerElement - Botão que habilita edição da área de texto
+ * @param {HTMLTextAreaElement} targetElement - Campo de edição de texto
+ */
+
 const setupBtnEdit = (triggerElement, targetElement) => {
   const toggleBtnBg = (btn) => {
     btn.classList.toggle("disabled-bg");
